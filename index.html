@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RasoiSarthi</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet"/>
+
+  <!-- Custom Styling -->
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle, #0a3d15, #011a07);
+      overflow: hidden;
+    }
+
+    .cinzel {
+      font-family: 'Cinzel', serif;
+    }
+
+    /* Sparkle Animation */
+    .sparkle {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background-color: white;
+      border-radius: 50%;
+      animation: sparkle-animation 2s infinite;
+      opacity: 0;
+    }
+
+    @keyframes sparkle-animation {
+      0% { transform: scale(0.5); opacity: 0.5; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(0.5); opacity: 0.5; }
+    }
+
+    /* Sparkle Positions */
+    .sparkle-1 { top: 60%; left: 35%; animation-delay: 0s; }
+    .sparkle-2 { top: 65%; left: 65%; animation-delay: 0.5s; }
+    .sparkle-3 { top: 75%; left: 30%; animation-delay: 1s; }
+    .sparkle-4 { top: 80%; left: 70%; animation-delay: 1.5s; }
+    .sparkle-5 { top: 55%; left: 75%; animation-delay: 0.2s; }
+    .sparkle-6 { top: 85%; left: 25%; animation-delay: 0.8s; }
+  </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen text-white relative">
+
+  <!-- Sparkle Overlay -->
+  <div class="absolute inset-0 pointer-events-none z-0">
+    <div class="sparkle sparkle-1"></div>
+    <div class="sparkle sparkle-2"></div>
+    <div class="sparkle sparkle-3"></div>
+    <div class="sparkle sparkle-4"></div>
+    <div class="sparkle sparkle-5"></div>
+    <div class="sparkle sparkle-6"></div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="text-center z-10 p-4">
+    <!-- Logo Image -->
+    <img src="logo.png" alt="RasoiSarthi Logo" ...>
+
+    <!-- Title -->
+    <h1 class="cinzel text-4xl md:text-5xl font-bold tracking-widest mb-2"></h1>
+
+    <!-- Tagline -->
+    <p class="text-sm md:text-base tracking-widest text-gray-300 mb-8"></p>
+
+    <!-- Continue Button -->
+    <a href="home.html" class="inline-block bg-transparent border border-white rounded-lg px-10 py-3 text-lg font-medium hover:bg-white hover:text-black transition-colors duration-300">
+      Continue
+    </a>
+  </div>
+
+</body>
+</html>

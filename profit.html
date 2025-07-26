@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profit Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #e0f2f1, #d1e8e2);
+      color: #333;
+      padding: 40px;
+    }
+
+    h2 {
+      color: #004d26;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .calculator {
+      max-width: 450px;
+      margin: auto;
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      background-color: #007e4f;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      margin-top: 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005e3a;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #e7fff1;
+      border-left: 5px solid #007e4f;
+      border-radius: 10px;
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #555;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>PROFIT CALCULATOR</h2>
+  <div class="calculator">
+    <label for="totalCost">Total Material Cost (₹):</label>
+    <input type="number" id="totalCost" placeholder="Eg. 200">
+
+    <label for="itemsMade">Total Items Made:</label>
+    <input type="number" id="itemsMade" placeholder="Eg. 50">
+
+    <label for="sellingPrice">Selling Price per Item (₹):</label>
+    <input type="number" id="sellingPrice" placeholder="Eg. 10">
+
+    <button onclick="calculateProfit()">Calculate</button>
+
+    <div class="result" id="output" style="display: none;"></div>
+
+    <div class="note">
+      
+    </div>
+  </div>
+
+  <script>
+    function calculateProfit() {
+      const totalCost = parseFloat(document.getElementById('totalCost').value);
+      const itemsMade = parseInt(document.getElementById('itemsMade').value);
+      const sellingPrice = parseFloat(document.getElementById('sellingPrice').value);
+
+      if (isNaN(totalCost) || isNaN(itemsMade) || isNaN(sellingPrice) || itemsMade === 0) {
+        alert("Please fill in all fields with valid values.");
+        return;
+      }
+
+      const totalRevenue = itemsMade * sellingPrice;
+      const profit = totalRevenue - totalCost;
+      const profitPercentage = (profit / totalCost) * 100;
+      const profitPerItem = profit / itemsMade;
+
+      const output = document.getElementById('output');
+      output.innerHTML = `
+        <p><strong>Total Revenue:</strong> ₹${totalRevenue}</p>
+        <p><strong>Total Cost:</strong> ₹${totalCost}</p>
+        <p><strong>Total Profit:</strong> ₹${profit}</p>
+        <p><strong>Profit Per Item:</strong> ₹${profitPerItem.toFixed(2)}</p>
+        <p><strong>Profit Percentage:</strong> ${profitPercentage.toFixed(2)}%</p>
+      `;
+      output.style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>

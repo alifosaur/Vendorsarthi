@@ -1,0 +1,95 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #e0f2f1, #d1e8e2);
+  color: #333;
+  padding: 30px;
+}
+
+h2 {
+  font-family: 'Segoe UI', sans-serif;
+  color: #064e3b;
+  text-align: center;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* increased spacing between inputs */
+}
+
+input,
+button {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%; /* ensures all inputs (including date) are equal width */
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #064e3b;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #04633f;
+}
+
+#expense-list {
+  list-style: none;
+  padding: 0;
+}
+
+#expense-list li {
+  background: #fafafa;
+  border: 1px solid #eee;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+}
+
+input:focus {
+  border-color: #064e3b;
+  outline: none;
+  box-shadow: 0 0 5px rgba(6, 78, 59, 0.2);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #e6f9e6; /* light green */
+  padding: 20px;
+}
+
+.container,
+.expense-box {
+  background-color: white;
+  ;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  
+}
+
+.container h2,
+.expense-box h2 {
+  text-align: center;
+  color: #2e7d32;
+}
+
+ul#expense-list {
+  list-style-type: none;
+  padding-left: 0;
+}

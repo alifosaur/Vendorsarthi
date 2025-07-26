@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category Page - Rasoi Sarthi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f9f4ef;
+      color: #44332d;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.9rem;
+      margin-bottom: 30px;
+      color: #c96a43;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .category-link {
+      text-decoration: none;
+    }
+
+    .category-item {
+      background-color: #ffffff;
+      border-radius: 20px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+    .category-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(163, 88, 53, 0.3);
+    }
+
+    .category-item img {
+      height: 70px;
+      margin-bottom: 10px;
+    }
+
+    .category-item span {
+      display: block;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #44332d;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #6e665f;
+    }
+  </style>
+</head>
+<body>
+  <h2>CHOOSE A CATEGORY</h2>
+
+  <div class="category-grid">
+    <a class="category-link" href="shop.html">
+      <div class="category-item">
+        <img src="vege.png" alt="Vegetables">
+        <span>Vegetables</span>
+      </div>
+    </a>
+    <a class="category-link" href="shop.html">
+      <div class="category-item">
+        <img src="fru.png" alt="Fruits">
+        <span>Fruits</span>
+      </div>
+    </a>
+    <a class="category-link" href="shop.html">
+      <div class="category-item">
+        <img src="milk.png" alt="Dairy">
+        <span>Dairy</span>
+      </div>
+    </a>
+    <a class="category-link" href="shop.html">
+      <div class="category-item">
+        <img src="spices.png" alt="Spices">
+        <span>Spices</span>
+      </div>
+    </a>
+    <a class="category-link" href="shop.html">
+      <div class="category-item">
+        <img src="oil.png" alt="Oils">
+        <span>Oils</span>
+      </div>
+    </a>
+    <a class="category-link" href="shop.html">
+      <div class="category-item">
+        <img src="bread.png" alt="Breads">
+        <span>Breads</span>
+      </div>
+    </a>
+    <a class="category-link" href="shop.html">
+      <div class="category-item">
+        <img src="sauces.png" alt="Sauces">
+        <span>Sauces</span>
+      </div>
+    </a>
+    <a class="category-link" href="shop.html">
+      <div class="category-item">
+        <img src="whi.png" alt="Dal & Rice">
+        <span>Dal & Rice</span>
+      </div>
+    </a>
+  </div>
+
+  <footer>
+    &copy; 2025 Rasoi Sarthi. All rights reserved.
+  </footer>
+</body>
+</html>
