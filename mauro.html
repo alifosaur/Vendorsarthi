@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #f9f4ef;
+    }
+  </style>
+</head>
+<body class="text-[#44332d] p-4">
+
+  <!-- Header / Banner -->
+  <div class="relative w-full rounded-2xl overflow-hidden mb-6 shadow-md">
+    <img src="1p.jpg" alt="Shop Banner" class="w-full h-64 object-cover">
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-6">
+      <h1 class="text-4xl font-bold">Mauro Frutta</h1>
+      <p class="mt-2 text-sm">123 Main Street, Mall City</p>
+      <p class="text-sm">fruttamauro@gmail.com | +91 XXXXXXXXXX</p>
+    </div>
+  </div>
+
+  <!-- Cart Section -->
+  <div id="cart" class="bg-white p-4 rounded-xl shadow mb-6">
+    <h2 class="font-semibold text-lg text-[#c96a43] mb-2">🛒 Cart</h2>
+    <ul id="cart-items" class="list-disc list-inside text-sm text-[#6e665f]">
+      <li>No items yet</li>
+    </ul>
+    <p id="total-bill" class="mt-2 text-sm font-semibold text-[#c96a43]">Total: ₹0</p>
+
+    <!-- ✅ Bill Generate Button -->
+    <button onclick="generateBill()" class="mt-3 bg-[#c96a43] text-white text-sm px-4 py-1 rounded hover:bg-[#a35835]">
+      Generate Bill
+    </button>
+
+    <!-- ✅ Hidden Bill Section -->
+    <div id="bill-section" class="hidden mt-4 bg-[#fdf8f4] p-3 rounded-md border border-[#e4d9cf]"></div>
+  </div>
+
+  <!-- Main Content Grid -->
+  <div class="grid md:grid-cols-2 gap-6">
+
+    <!-- Feedback Section -->
+    <div class="bg-white rounded-2xl shadow-md p-4">
+      <h2 class="font-semibold text-lg text-[#c96a43] mb-2">📢 Feedbacks (<span id="feedback-count">80</span>)</h2>
+      <div id="feedback-list" class="space-y-2 mb-4 max-h-64 overflow-y-auto"></div>
+      <textarea id="feedback-input" placeholder="Write something..." class="w-full border border-[#d6c5b6] rounded-md p-2 text-sm focus:outline-[#a35835]"></textarea>
+      <button onclick="submitFeedback()" class="mt-2 bg-[#c96a43] text-white text-sm px-4 py-1 rounded-md hover:bg-[#a35835]">Submit</button>
+    </div>
+
+    <!-- Product List -->
+    <div class="bg-white rounded-2xl shadow-md p-4">
+      <h2 class="font-semibold text-lg text-[#c96a43] mb-2">🧺 Items</h2>
+      <ul id="item-list" class="space-y-3"></ul>
+    </div>
+
+  </div>
+
+  <script>
+    const items = [
+      { name: 'Onion', price: 30 },
+      { name: 'Potatoes', price: 20 },
+      { name: 'Oil', price: 120 },
+      { name: 'Sauce', price: 60 },
+      { name: 'Tomato', price: 25 },
+      { name: 'Carrot', price: 40 },
+      { name: 'Spinach', price: 15 },
+      { name: 'Garlic', price: 100 },
+      { name: 'Ginger', price: 90 },
+      { name: 'Cabbage', price: 18 },
+      { name: 'Cauliflower', price: 22 },
+      { name: 'Capsicum', price: 35 },
+      { name: 'Pumpkin', price: 28 },
+      { name: 'Beetroot', price: 38 },
+      { name: 'Chili', price: 45 },
+    ];
+
+    const itemList = document.getElementById('item-list');
+    const cartItems = document.getElementById('cart-items');
+    let cart = [];
+
+    function renderCart() {
+      cartItems.innerHTML = '';
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<li>No items yet</li>';
+        document.getElementById('total-bill').textContent = 'Total: ₹0';
+        return;
+      }
+
+      let total = 0;
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} — ₹${item.price}`;
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+
+      document.getElementById('total-bill').textContent = `Total: ₹${total}`;
+    }
+
+    function addToCart(itemName) {
+      const item = items.find(i => i.name === itemName);
+      cart.push(item);
+      renderCart();
+    }
+
+    // 🧾 Bill Generator Function
+    function generateBill() {
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+
+      const billSection = document.getElementById('bill-section');
+      billSection.innerHTML = '<h2 class="text-lg font-semibold mb-2">🧾 Bill Summary</h2>';
+
+      // Count items & quantities
+      const countedItems = {};
+      cart.forEach(item => {
+        if (countedItems[item.name]) countedItems[item.name].qty += 1;
+        else countedItems[item.name] = { ...item, qty: 1 };
+      });
+
+      // Create table
+      const table = document.createElement('table');
+      table.className = "w-full text-sm border-collapse mb-2";
+
+      table.innerHTML = `
+        <thead>
+          <tr class="border-b">
+            <th class="text-left py-1">Item</th>
+            <th class="text-center py-1">Qty</th>
+            <th class="text-right py-1">Price (₹)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      `;
+      const tbody = table.querySelector('tbody');
+
+      let total = 0;
+      Object.values(countedItems).forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="py-1">${item.name}</td>
+          <td class="text-center py-1">${item.qty}</td>
+          <td class="text-right py-1">${(item.price * item.qty).toFixed(2)}</td>
+        `;
+        tbody.appendChild(row);
+        total += item.price * item.qty;
+      });
+
+      billSection.appendChild(table);
+
+      // GST and final total
+      const gst = total * 0.05;
+      const final = total + gst;
+
+      const summary = document.createElement('div');
+      summary.innerHTML = `
+        <p class="text-sm">Subtotal: ₹${total.toFixed(2)}</p>
+        <p class="text-sm">GST (5%): ₹${gst.toFixed(2)}</p>
+        <p class="font-semibold text-[#c96a43]">Total Payable: ₹${final.toFixed(2)}</p>
+      `;
+      billSection.appendChild(summary);
+
+      // Show the bill section
+      billSection.classList.remove('hidden');
+    }
+
+    items.forEach((item) => {
+      const li = document.createElement('li');
+      li.className = "flex justify-between items-center border-b border-[#f0eae3] pb-2";
+      li.innerHTML = `
+        <div>
+          <div class="font-medium">${item.name}</div>
+          <div class="text-xs text-[#c96a43]">₹${item.price}</div>
+        </div>
+        <button onclick="addToCart('${item.name}')" class="bg-[#c96a43] text-white text-sm px-3 py-1 rounded hover:bg-[#a35835]">Add</button>
+      `;
+      itemList.appendChild(li);
+    });
+
+    function submitFeedback() {
+      const input = document.getElementById('feedback-input');
+      const value = input.value.trim();
+      if (value) {
+        const feedbackList = document.getElementById('feedback-list');
+        const newFeedback = document.createElement('div');
+        newFeedback.className = 'bg-[#c96a43] p-2 rounded-md text-sm text-white';
+        newFeedback.textContent = `📝 ${value} - Guest`;
+        feedbackList.appendChild(newFeedback);
+
+        const countEl = document.getElementById('feedback-count');
+        countEl.textContent = parseInt(countEl.textContent) + 1;
+
+        input.value = '';
+      } else {
+        alert("Please write some feedback.");
+      }
+    }
+
+    // Auto generate 78 feedbacks
+    const sampleFeedbacks = [
+      "Fast delivery 🚚",
+      "Amazing quality 🥕",
+      "Fresh vegetables 🥦",
+      "Very clean packaging ✨",
+      "Great customer service 📞",
+      "Affordable rates 💰",
+      "Good experience overall 🌟",
+      "Will order again 🔁",
+      "Loved the tomatoes 🍅",
+      "Quick response 👏",
+    ];
+
+    const feedbackList = document.getElementById('feedback-list');
+    for (let i = 1; i <= 78; i++) {
+      const feedback = document.createElement('div');
+      feedback.className = 'bg-[#f9f4ef] p-2 rounded-md text-sm';
+      const text = sampleFeedbacks[Math.floor(Math.random() * sampleFeedbacks.length)];
+      feedback.textContent = `${text} - User${i}`;
+      feedbackList.appendChild(feedback);
+    }
+  </script>
+
+  <!-- Shop Gallery Section -->
+  <section class="px-4 py-8 bg-white rounded-2xl shadow-md mt-6">
+    <h2 class="text-3xl font-bold text-center text-orange-500 mb-8">Shop Gallery</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white">
+        <img src="im1.jpg" alt="Shop View 1" class="w-full h-60 object-cover rounded-2xl" />
+      </div>
+      <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white">
+        <img src="im2.jpg" alt="Shop View 2" class="w-full h-60 object-cover rounded-2xl" />
+      </div>
+      <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white">
+        <img src="im3.jpg" alt="Shop View 3" class="w-full h-60 object-cover rounded-2xl" />
+      </div>
+      <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white">
+        <img src="im4.jpg" alt="Shop View 4" class="w-full h-60 object-cover rounded-2xl" />
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
