@@ -35,6 +35,7 @@
     <h2 class="font-semibold text-lg text-[#c96a43] mb-2">🛒 Cart</h2>
     <ul id="cart-items" class="list-disc list-inside text-sm text-[#6e665f]">
       <li>No items yet</li>
+      
       <script>
   function generateBill() {
     if (cart.length === 0) {
@@ -101,6 +102,7 @@
     billSection.classList.remove('hidden');
   }
 </script>
+      <button onclick="generateBill()" class="mt-2 bg-[#c96a43] text-white text-sm px-4 py-2 rounded-md hover:bg-[#a35835]">Generate Bill</button>
     </ul>
   </div>
 
